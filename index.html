@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>加我微信</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body style="font-family:-apple-system;padding:30px;text-align:center;">
+
+<h2>加我微信</h2>
+
+<p>长按二维码识别添加好友</p >
+
+< img src="wx.jpg" style="width:260px;border-radius:15px;">
+
+<p style="margin-top:20px;">如果识别失败，可复制微信号</p >
+
+<button onclick="copyWX()" style="padding:12px 20px;font-size:16px;">
+复制微信号
+</button>
+
+<p id="msg"></p >
+
+<script>
+function copyWX(){
+navigator.clipboard.writeText("13796028181");
+document.getElementById("msg").innerText="微信号已复制";
+}
+</script>
+
+</body>
+</html>
