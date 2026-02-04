@@ -1,33 +1,45 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="zh-CN">
 <head>
-<meta charset="utf-8">
-<title>加我微信</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>打开支付</title>
 </head>
 
-<body style="font-family:-apple-system;padding:30px;text-align:center;">
+<body style="font-family:-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif;padding:24px;line-height:1.6;text-align:center;">
+  <h3>正在打开微信支付…</h3>
+  <p>如果没有自动打开，请点击下面按钮。</p >
 
-<h2>加我微信</h2>
+  <button id="openWx" style="font-size:18px;padding:12px 18px;border-radius:10px;">
+    打开微信
+  </button>
 
-<p>长按二维码识别添加好友</p >
+  <p style="margin-top:18px;color:#666;">
+    打开微信后，若未自动进入支付页面，请在微信中再次点击本页面的链接。
+  </p >
 
-<img src="wx.jpg" style="width:260px;border-radius:15px;" />
+  <script>
+    // 目标支付页（你的链接）
+    const payUrl = "https://qfclottery.swiftpass.run/terminal/appAuth/login/247cedd796314e3088eb6a5e7d683b16";
 
-<p style="margin-top:20px;">如果识别失败，可复制微信号</p >
+    // ① 尝试直接在当前浏览器跳转（部分机型会被拦）
+    function openPay(){
+      window.location.href = payUrl;
+    }
 
-<button onclick="copyWX()" style="padding:12px 20px;font-size:16px;">
-复制微信号
-</button>
+    // ② 尝试拉起微信（不保证成功，但能提高在微信环境打开的概率）
+    function openWeChat(){
+      // 先尝试打开微信
+      window.location.href = "weixin://";
+      // 稍等再跳支付页（如果已切到微信，有机会在微信内打开）
+      setTimeout(openPay, 800);
+    }
 
-<p id="msg"></p >
+    // 页面加载时尝试一次
+    setTimeout(openWeChat, 200);
 
-<script>
-function copyWX(){
-navigator.clipboard.writeText("13796028181");
-document.getElementById("msg").innerText="微信号已复制";
-}
-</script>
-
+    // 按钮兜底
+    document.getElementById("openWx").addEventListener("click", openWeChat);
+  </script>
 </body>
 </html>
